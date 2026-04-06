@@ -67,12 +67,6 @@ const Hero = () => {
           >
             Explore Our Brews
           </a>
-          <a
-            href="#visit"
-            className="bg-primary text-primary-foreground rounded-full px-8 py-3.5 text-sm font-body font-semibold hover:opacity-90 transition-opacity"
-          >
-            Reserve a Table
-          </a>
         </motion.div>
 
         <motion.div
