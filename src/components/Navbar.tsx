@@ -93,24 +93,6 @@ const Navbar = () => {
                 </motion.button>
               ))}
 
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{
-                  delay: 0.15 + navLinks.length * 0.07,
-                  duration: 0.4,
-                  ease: [0.25, 1, 0.5, 1],
-                }}
-                className="mt-8"
-              >
-                <button
-                  onClick={() => scrollTo("visit")}
-                  className="px-8 py-3.5 bg-primary text-primary-foreground rounded-full text-lg font-body font-semibold hover:opacity-90 transition-opacity"
-                >
-                  Reserve a Table
-                </button>
-              </motion.div>
             </nav>
           </motion.div>
         )}
