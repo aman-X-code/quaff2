@@ -1,55 +1,6 @@
 import { useRef, useEffect, useState } from "react";
 import { motion, useScroll, useTransform, useSpring, MotionValue } from "motion/react";
 
-const burpLetters = "Buuuuurrrrp!".split("");
-
-// Each letter appears from the right, staggered by scroll
-const BurpLetter = ({
-  letter,
-  index,
-  total,
-  scrollProgress,
-  isMobile,
-}: {
-  letter: string;
-  index: number;
-  total: number;
-  scrollProgress: MotionValue<number>;
-  isMobile: boolean;
-}) => {
-  const start = 0.35 + (index / total) * 0.35;
-  const end = start + 0.08;
-
-  const opacity = useTransform(scrollProgress, [start, end], [0, 1]);
-  const x = useTransform(scrollProgress, [start, end], [80, 0]);
-  const blur = useTransform(scrollProgress, [start, end], [12, 0]);
-  const blurFilter = useTransform(blur, (v) => `blur(${v}px)`);
-  const scale = useTransform(scrollProgress, [start, end], [0.7, 1]);
-  // Fade out at the end
-  const fadeOut = useTransform(scrollProgress, [0.85, 0.95], [1, 0]);
-
-  return (
-    <motion.span
-      style={{
-        opacity: useTransform([opacity, fadeOut] as MotionValue[], ([o, f]: number[]) => (o as number) * (f as number)),
-        x,
-        scale,
-        filter: blurFilter,
-        display: "inline-block",
-        fontFamily: "var(--font-heading)",
-        fontSize: isMobile ? "38vw" : "22vw",
-        fontWeight: 900,
-        fontStyle: "italic",
-        color: "hsla(30, 3%, 70%, 0.18)",
-        lineHeight: 1,
-        willChange: "transform, opacity, filter",
-      }}
-    >
-      {letter}
-    </motion.span>
-  );
-};
-
 // Word component that reveals based on scroll progress
 const ScrollWord = ({
   word,
@@ -118,7 +69,12 @@ const BurpText = () => {
   const amenBlur = useTransform(smoothProgress, [0.1, 0.2], [10, 0]);
   const amenFilter = useTransform(amenBlur, (v) => `blur(${v}px)`);
 
-  // Burp text — no longer used as single block, now letter-by-letter
+  // Burp text — single block scroll
+  const burpX = useTransform(smoothProgress, [0.3, 0.6, 1.0], ["120%", "0%", "-50%"]);
+  const burpY = useTransform(smoothProgress, [0.3, 0.6, 1.0], ["0%", "0%", "25%"]);
+  const burpOp = useTransform(smoothProgress, [0.3, 0.5, 0.78, 0.95], [0, 1, 1, 0]);
+  const burpRotate = useTransform(smoothProgress, [0.3, 0.6, 1.0], [-8, -12, -16]);
+  const burpScale = useTransform(smoothProgress, [0.3, 0.6, 0.85], [0.9, 1, 1.05]);
 
   // Quote words with highlight markers
   const quoteLines = [
