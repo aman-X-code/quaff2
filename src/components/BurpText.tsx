@@ -243,30 +243,33 @@ const BurpText = () => {
         </div>
 
         {/* Buuuuurrrrrp — letter by letter from right to left */}
-        <div
+        <motion.div
           style={{
             position: "absolute",
             bottom: isMobile ? "8%" : "4%",
             left: "50%",
-            transform: "translateX(-50%) rotate(-12deg)",
             zIndex: 5,
-            display: "flex",
+            fontFamily: "var(--font-heading)",
+            fontSize: isMobile ? "38vw" : "22vw",
+            fontWeight: 900,
+            fontStyle: "italic",
+            color: "hsla(30, 3%, 70%, 0.18)",
+            letterSpacing: "-0.03em",
             pointerEvents: "none",
             userSelect: "none",
             whiteSpace: "nowrap",
+            lineHeight: 1,
+            willChange: "transform, opacity",
+            x: burpX,
+            y: burpY,
+            opacity: burpOp,
+            rotate: burpRotate,
+            scale: burpScale,
+            translateX: "-50%",
           }}
         >
-          {burpLetters.map((letter, i) => (
-            <BurpLetter
-              key={i}
-              letter={letter}
-              index={i}
-              total={burpLetters.length}
-              scrollProgress={smoothProgress}
-              isMobile={isMobile}
-            />
-          ))}
-        </div>
+          Buuuuuurrrrrrpppp!
+        </motion.div>
       </div>
     </section>
   );
