@@ -5,6 +5,7 @@ import Brews from "@/components/Brews";
 import MenuSection from "@/components/MenuSection";
 import BrewerySection from "@/components/BrewerySection";
 import Testimonials from "@/components/Testimonials";
+import BurpText from "@/components/BurpText";
 import VisitSection from "@/components/VisitSection";
 import Footer from "@/components/Footer";
 
@@ -18,6 +19,7 @@ const Index = () => {
       <MenuSection />
       <BrewerySection />
       <Testimonials />
+      <BurpText />
       <VisitSection />
       <Footer />
     </div>
