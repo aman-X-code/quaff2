@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, useMemo } from "react";
 import { motion, useScroll, useTransform, useSpring, MotionValue } from "motion/react";
 
 // Word component that reveals based on scroll progress
@@ -69,12 +69,7 @@ const BurpText = () => {
   const amenBlur = useTransform(smoothProgress, [0.1, 0.2], [10, 0]);
   const amenFilter = useTransform(amenBlur, (v) => `blur(${v}px)`);
 
-  // Burp text
-  const burpX = useTransform(smoothProgress, [0.3, 0.6, 1.0], ["120%", "0%", "-50%"]);
-  const burpY = useTransform(smoothProgress, [0.3, 0.6, 1.0], ["0%", "0%", "25%"]);
-  const burpOp = useTransform(smoothProgress, [0.3, 0.5, 0.78, 0.95], [0, 1, 1, 0]);
-  const burpRotate = useTransform(smoothProgress, [0.3, 0.6, 1.0], [-8, -12, -16]);
-  const burpScale = useTransform(smoothProgress, [0.3, 0.6, 0.85], [0.9, 1, 1.05]);
+  // Burp text — no longer used as single block, now letter-by-letter
 
   // Quote words with highlight markers
   const quoteLines = [
@@ -250,34 +245,31 @@ const BurpText = () => {
           </div>
         </div>
 
-        {/* Buuuuurp — scroll-driven */}
-        <motion.div
+        {/* Buuuuurrrrrp — letter by letter from right to left */}
+        <div
           style={{
             position: "absolute",
-            bottom: isMobile ? "12%" : "6%",
+            bottom: isMobile ? "8%" : "4%",
             left: "50%",
+            transform: "translateX(-50%) rotate(-12deg)",
             zIndex: 5,
-            fontFamily: "var(--font-heading)",
-            fontSize: isMobile ? "32vw" : "18vw",
-            fontWeight: 900,
-            fontStyle: "italic",
-            color: "hsla(30, 3%, 70%, 0.15)",
-            letterSpacing: "-0.03em",
+            display: "flex",
             pointerEvents: "none",
             userSelect: "none",
             whiteSpace: "nowrap",
-            lineHeight: 1,
-            willChange: "transform, opacity",
-            x: burpX,
-            y: burpY,
-            opacity: burpOp,
-            rotate: burpRotate,
-            scale: burpScale,
-            translateX: "-50%",
           }}
         >
-          Buuuuurp!
-        </motion.div>
+          {burpLetters.map((letter, i) => (
+            <BurpLetter
+              key={i}
+              letter={letter}
+              index={i}
+              total={burpLetters.length}
+              scrollProgress={smoothProgress}
+              isMobile={isMobile}
+            />
+          ))}
+        </div>
       </div>
     </section>
   );
