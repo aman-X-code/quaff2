@@ -193,14 +193,6 @@ const BurpText = () => {
   }, []);
 
   // Group words back into lines for rendering
-  const lineBreaks = [0];
-  let currentLine = 0;
-  allWords.forEach((w, i) => {
-    if (i > 0 && w.lineIndex !== allWords[i - 1].lineIndex) {
-      lineBreaks.push(i);
-      currentLine = w.lineIndex;
-    }
-  });
 
   const renderLines = () => {
     const lines: { word: string; isHighlight: boolean; globalIndex: number }[][] = [];
