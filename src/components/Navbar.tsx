@@ -31,9 +31,13 @@ const Navbar = () => {
         className="fixed top-0 left-0 right-0 z-50"
       >
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          <span className="font-heading italic text-2xl text-foreground tracking-tight relative z-50">
-            BrewHaus
-          </span>
+          <a href="#" className="relative z-50">
+            <img
+              src="/logo-quaff.png"
+              alt="Quaff Brewing Co."
+              className="h-10 w-auto object-contain"
+            />
+          </a>
 
           <button
             className="relative z-50 w-11 h-11 flex items-center justify-center rounded-full liquid-glass"

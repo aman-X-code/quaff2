@@ -8,20 +8,31 @@ const Footer = () => {
     offset: ["start end", "end end"],
   });
 
-  const textY = useTransform(scrollYProgress, [0, 1], [80, 0]);
-  const textOpacity = useTransform(scrollYProgress, [0, 0.5], [0, 1]);
+  const textY = useTransform(scrollYProgress, [0, 1], [40, 0]);
+
+  const navRows = [
+    ["Home", "Our Story", "Brews"],
+    ["Menu", "Visit Us", "Gallery"],
+    ["Cyber Hub", "Eros City Square"],
+  ];
 
   return (
     <footer
       ref={footerRef}
-      className="relative bg-background pt-16 pb-8 px-6 md:px-16 overflow-hidden"
-      style={{ borderTop: "1px solid hsla(40, 20%, 95%, 0.06)" }}
+      className="relative pt-14 overflow-hidden"
+      style={{
+        background: "hsl(20, 10%, 3%)",
+        borderRadius: "40px 40px 0 0",
+        marginTop: "2px",
+        boxShadow: "0 -1px 0 hsla(40, 20%, 95%, 0.07), 0 -40px 80px -20px rgba(0,0,0,0.6)",
+      }}
     >
-      <div className="max-w-7xl mx-auto">
-        {/* Top row: socials + contact */}
-        <div className="flex flex-col md:flex-row justify-between gap-10 mb-12">
+      <div className="max-w-7xl mx-auto px-6 md:px-16">
+
+        {/* Row 1: social icons left | contact right */}
+        <div className="flex items-start justify-between mb-8">
           {/* Social icons */}
-          <div className="flex gap-4">
+          <div className="flex gap-3">
             {[
               { label: "Twitter", path: "M22.46 6c-.77.35-1.6.58-2.46.69a4.3 4.3 0 001.88-2.38 8.59 8.59 0 01-2.72 1.04 4.28 4.28 0 00-7.32 3.91A12.16 12.16 0 013.15 4.83a4.28 4.28 0 001.32 5.71 4.24 4.24 0 01-1.94-.54v.05a4.28 4.28 0 003.43 4.19 4.27 4.27 0 01-1.93.07 4.29 4.29 0 004 2.98A8.59 8.59 0 012 19.54a12.13 12.13 0 006.56 1.92c7.88 0 12.2-6.53 12.2-12.2 0-.19 0-.37-.01-.56A8.72 8.72 0 0024 5.06a8.53 8.53 0 01-2.54.7z" },
               { label: "Instagram", path: "M7.75 2h8.5A5.75 5.75 0 0122 7.75v8.5A5.75 5.75 0 0116.25 22h-8.5A5.75 5.75 0 012 16.25v-8.5A5.75 5.75 0 017.75 2zm0 1.5A4.25 4.25 0 003.5 7.75v8.5A4.25 4.25 0 007.75 20.5h8.5a4.25 4.25 0 004.25-4.25v-8.5A4.25 4.25 0 0016.25 3.5h-8.5zM12 7a5 5 0 110 10 5 5 0 010-10zm0 1.5a3.5 3.5 0 100 7 3.5 3.5 0 000-7zm5.25-.88a.88.88 0 110 1.76.88.88 0 010-1.76z" },
@@ -31,16 +42,10 @@ const Footer = () => {
                 key={icon.label}
                 href="#"
                 aria-label={icon.label}
-                className="w-11 h-11 rounded-full flex items-center justify-center transition-colors"
-                style={{
-                  border: "1px solid hsla(40, 20%, 95%, 0.15)",
-                }}
+                className="w-10 h-10 rounded-full flex items-center justify-center transition-colors hover:bg-white/5"
+                style={{ border: "1px solid hsla(40, 20%, 95%, 0.15)" }}
               >
-                <svg
-                  viewBox="0 0 24 24"
-                  className="w-5 h-5"
-                  fill="hsla(40, 20%, 95%, 0.6)"
-                >
+                <svg viewBox="0 0 24 24" className="w-4 h-4" fill="hsla(40, 20%, 95%, 0.6)">
                   <path d={icon.path} />
                 </svg>
               </a>
@@ -50,74 +55,64 @@ const Footer = () => {
           {/* Contact */}
           <div className="text-right">
             <p
-              className="font-body text-xs uppercase tracking-wider mb-1"
-              style={{ color: "hsl(35, 80%, 50%)" }}
+              className="font-body text-xs uppercase tracking-widest mb-1.5"
+              style={{ color: "hsla(40, 20%, 95%, 0.4)" }}
             >
               Contact Us
             </p>
             <a
-              href="mailto:hello@brewhaus.in"
-              className="font-body text-lg font-light transition-colors hover:opacity-80"
-              style={{ color: "hsl(var(--foreground))" }}
+              href="mailto:Quaff@vegahospitality.co.in"
+              className="font-body font-light text-base transition-opacity hover:opacity-80"
+              style={{ color: "hsl(35, 80%, 55%)" }}
             >
-              hello@brewhaus.in
+              Quaff@vegahospitality.co.in
             </a>
           </div>
         </div>
 
-        {/* Links grid */}
-        <div className="flex flex-wrap gap-x-6 gap-y-2 mb-16">
-          {[
-            ["Home", "Our Story", "Menu"],
-            ["Brews", "Visit Us", "Brewery"],
-          ].flat().map((link, i, arr) => (
-            <span key={link} className="flex items-center gap-6">
-              <a
-                href="#"
-                className="font-body text-sm font-light transition-colors hover:opacity-80"
-                style={{ color: "hsla(40, 20%, 95%, 0.6)" }}
-              >
-                {link}
-              </a>
-              {i < arr.length - 1 && (
-                <span style={{ color: "hsla(40, 20%, 95%, 0.2)" }}>/</span>
-              )}
-            </span>
+        {/* Row 2: nav links with "/" separators — styled exactly like Templyo */}
+        <div className="space-y-1.5 mb-16">
+          {navRows.map((row, ri) => (
+            <div key={ri} className="flex items-center gap-0">
+              {row.map((link, li) => (
+                <span key={link} className="flex items-center">
+                  <a
+                    href="#"
+                    className="font-body font-light text-sm transition-opacity hover:opacity-80"
+                    style={{ color: "hsla(40, 20%, 95%, 0.6)" }}
+                  >
+                    {link}
+                  </a>
+                  {li < row.length - 1 && (
+                    <span
+                      className="mx-3 font-body font-light text-sm"
+                      style={{ color: "hsla(40, 20%, 95%, 0.2)" }}
+                    >
+                      /
+                    </span>
+                  )}
+                </span>
+              ))}
+            </div>
           ))}
-        </div>
-
-        {/* Copyright */}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-8">
-          <span
-            className="font-heading italic text-lg"
-            style={{ color: "hsla(40, 20%, 95%, 0.6)" }}
-          >
-            BrewHaus
-          </span>
-          <p
-            className="font-body font-light text-xs"
-            style={{ color: "hsla(40, 20%, 95%, 0.3)" }}
-          >
-            © 2026 BrewHaus Delhi. All rights reserved.
-          </p>
         </div>
       </div>
 
-      {/* Giant "Queff" text at the bottom */}
+      {/* Giant "Quaff" watermark — flush to bottom like Templyo */}
       <motion.div
         className="w-full overflow-hidden pointer-events-none select-none"
-        style={{ y: textY, opacity: textOpacity }}
+        style={{ y: textY }}
       >
         <p
           className="font-heading italic text-center leading-none"
           style={{
-            fontSize: "clamp(100px, 18vw, 320px)",
-            color: "hsla(40, 20%, 95%, 0.04)",
+            fontSize: "clamp(100px, 22vw, 400px)",
+            color: "hsla(40, 20%, 95%, 0.12)",
             letterSpacing: "-0.03em",
-            marginBottom: "-0.15em",
+            marginBottom: "-0.12em",
           }}
         >
-          Queff
+          Quaff
         </p>
       </motion.div>
     </footer>

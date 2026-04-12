@@ -1,5 +1,6 @@
 import { motion } from "motion/react";
-import beerPourImg from "@/assets/beer-pour.jpg";
+
+const beerPourImg = "https://res.cloudinary.com/dave3np5n/image/upload/v1773117272/IMG_1002_2_q7uepn.jpg";
 
 const OurStory = () => {
   return (
@@ -37,15 +38,15 @@ const OurStory = () => {
             of great beer.
           </h2>
           <p className="section-subtext mb-6">
-            BrewHaus started with a simple dream — to bring the craft brewery
-            experience to the heart of Delhi. Every batch is brewed on-site with
-            hand-selected ingredients, from malty ambers to hoppy IPAs.
+            Quaff Brewing Co. started with a simple dream — to bring world-class
+            craft brewery experience to Gurgaon. With locations in DLF Cyber Hub
+            and Eros City Square, every batch is brewed on-site with hand-selected
+            ingredients, from malty ambers to bold hoppy IPAs.
           </p>
           <p className="section-subtext mb-8">
-            Our space is designed to feel like your favorite corner of the
-            world — exposed brick, warm lighting, and leather booths where
-            conversations last longer than the pints. This isn't just a bar.
-            It's home.
+            Our space is designed to feel alive — warm lighting, curated
+            interiors, and vibrant energy where every evening is an experience.
+            This isn't just a bar. It's where Gurgaon comes to celebrate.
           </p>
           <a
             href="#brews"

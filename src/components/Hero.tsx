@@ -1,6 +1,7 @@
 import { motion } from "motion/react";
 import { ArrowDown } from "lucide-react";
-import heroImg from "@/assets/hero-bar.jpg";
+
+const heroImg = "https://res.cloudinary.com/dave3np5n/image/upload/v1773117249/IMG_0970_2_h11ttp.jpg";
 
 const Hero = () => {
   return (
@@ -31,7 +32,7 @@ const Hero = () => {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="section-badge"
         >
-          Craft Brewery & Kitchen · Delhi
+          Craft Brewery & Kitchen · DLF Cyber Hub, Gurgaon
         </motion.div>
 
         <motion.h1
@@ -51,8 +52,8 @@ const Hero = () => {
           transition={{ duration: 0.7, delay: 0.8 }}
           className="section-subtext mt-6 text-center max-w-lg"
         >
-          Handcrafted beers brewed in-house. Soulful food. A cozy corner of
-          Delhi where good times flow on tap.
+          Handcrafted beers brewed in-house. Chef-curated gourmet food. The finest
+          brewpub experience in Gurgaon's DLF Cyber Hub.
         </motion.p>
 
         <motion.div

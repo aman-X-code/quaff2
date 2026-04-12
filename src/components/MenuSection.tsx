@@ -1,102 +1,179 @@
-import { motion } from "motion/react";
-import foodImg from "@/assets/food-platter.jpg";
-import cozyImg from "@/assets/cozy-interior.jpg";
+import { useState } from "react";
+import { motion, AnimatePresence } from "motion/react";
+import BarMenuBook from "./BarMenuBook";
+import FoodMenuBook from "./FoodMenuBook";
 
-const menuHighlights = [
-  { name: "Smoked Chicken Sliders", price: "₹450", tag: "Best Seller" },
-  { name: "Beer-Battered Fish & Chips", price: "₹520", tag: "" },
-  { name: "Tandoori Lamb Chops", price: "₹680", tag: "Chef's Pick" },
-  { name: "Truffle Fries", price: "₹320", tag: "" },
-  { name: "BBQ Pulled Pork Nachos", price: "₹480", tag: "Pair with IPA" },
-  { name: "Dark Chocolate Beer Brownie", price: "₹280", tag: "Sweet Finish" },
+type MenuMode = "bar" | "food";
+
+const MODES: { key: MenuMode; icon: string; label: string; sub: string }[] = [
+  { key: "bar", icon: "🍸", label: "Bar Menu", sub: "Drinks & Cocktails" },
+  { key: "food", icon: "🍽️", label: "Food Menu", sub: "Kitchen Fare" },
 ];
 
 const MenuSection = () => {
+  const [mode, setMode] = useState<MenuMode>("bar");
+
   return (
     <section id="menu" className="py-24 md:py-32 px-6 md:px-16 lg:px-24">
       <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <span className="section-badge">The Kitchen</span>
+
+        {/* ── Header ── */}
+        <div className="text-center mb-14">
+          <span className="section-badge">The Bar &amp; Kitchen</span>
           <h2 className="section-heading">
-            Food that pairs
+            Every sip, every bite,
             <br />
-            with every pour.
+            crafted with care.
           </h2>
+          <p className="section-subtext mx-auto text-center mt-2">
+            Award-winning microbrewery · DLF Cyber Hub, Gurgaon
+          </p>
         </div>
 
-        {/* Two column: food image + menu list */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="space-y-6"
+        {/* ── Premium sliding pill tab switcher ── */}
+        <div className="flex justify-center mb-10">
+          <div
+            style={{
+              display: "inline-flex",
+              alignItems: "stretch",
+              background: "hsla(40,20%,95%,0.04)",
+              border: "1px solid hsla(40,20%,95%,0.08)",
+              borderRadius: 999,
+              padding: 5,
+              gap: 2,
+            }}
           >
-            <div className="liquid-glass rounded-2xl overflow-hidden">
-              <img
-                src={foodImg}
-                alt="Gourmet bar food platter"
-                className="w-full h-[350px] object-cover"
-                loading="lazy"
-                width={800}
-                height={800}
-              />
-            </div>
-            <div className="liquid-glass rounded-2xl overflow-hidden">
-              <img
-                src={cozyImg}
-                alt="Cozy interior with craft beer"
-                className="w-full h-[250px] object-cover"
-                loading="lazy"
-                width={800}
-                height={800}
-              />
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: 0.2 }}
-          >
-            <h3 className="font-heading italic text-2xl text-foreground mb-2">
-              Highlights
-            </h3>
-            <p className="section-subtext mb-8">
-              Our kitchen crafts bold flavors designed to complement our brews.
-            </p>
-
-            <div className="space-y-0">
-              {menuHighlights.map((item, i) => (
-                <div
-                  key={i}
-                  className="flex items-center justify-between py-5 border-b border-foreground/[0.06]"
+            {MODES.map(({ key, icon, label, sub }) => {
+              const active = mode === key;
+              return (
+                <motion.button
+                  key={key}
+                  onClick={() => setMode(key)}
+                  whileHover={active ? {} : { scale: 1.02 }}
+                  whileTap={{ scale: 0.97 }}
+                  style={{
+                    position: "relative",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 10,
+                    padding: "12px 32px",
+                    borderRadius: 999,
+                    border: "none",
+                    background: "transparent",
+                    cursor: "pointer",
+                    color: active ? "hsl(20,10%,5%)" : "hsla(40,20%,95%,0.55)",
+                    transition: "color 0.3s ease",
+                    zIndex: 1,
+                  }}
                 >
-                  <div className="flex items-center gap-3">
-                    <span className="font-body font-medium text-foreground text-sm">
-                      {item.name}
-                    </span>
-                    {item.tag && (
-                      <span className="text-[10px] font-body font-medium text-primary bg-primary/10 rounded-full px-2 py-0.5">
-                        {item.tag}
-                      </span>
-                    )}
-                  </div>
-                  <span className="font-body font-light text-foreground/50 text-sm">
-                    {item.price}
-                  </span>
-                </div>
-              ))}
-            </div>
+                  {/* Animated gold pill sliding underneath */}
+                  {active && (
+                    <motion.div
+                      layoutId="menu-pill"
+                      transition={{ type: "spring", stiffness: 420, damping: 38 }}
+                      style={{
+                        position: "absolute",
+                        inset: 0,
+                        borderRadius: 999,
+                        background: "hsl(35,80%,50%)",
+                        boxShadow: "0 4px 24px hsl(35 80% 50% / 0.4)",
+                        zIndex: -1,
+                      }}
+                    />
+                  )}
 
-            <p className="mt-8 text-xs font-body text-foreground/30">
-              Full menu available at the bar. Seasonal specials change weekly.
-            </p>
-          </motion.div>
+                  {/* Icon — bounces when active */}
+                  <motion.span
+                    animate={{ scale: active ? 1.2 : 1 }}
+                    transition={{ type: "spring", stiffness: 500, damping: 28 }}
+                    style={{ fontSize: 18, lineHeight: 1, flexShrink: 0 }}
+                  >
+                    {icon}
+                  </motion.span>
+
+                  {/* Labels */}
+                  <span
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "flex-start",
+                      gap: 1.5,
+                    }}
+                  >
+                    <span
+                      style={{
+                        fontFamily: "inherit",
+                        fontWeight: 600,
+                        fontSize: 13.5,
+                        lineHeight: 1,
+                        whiteSpace: "nowrap",
+                        letterSpacing: "-0.01em",
+                      }}
+                    >
+                      {label}
+                    </span>
+                    <span
+                      style={{
+                        fontFamily: "inherit",
+                        fontWeight: 300,
+                        fontSize: 10.5,
+                        lineHeight: 1,
+                        whiteSpace: "nowrap",
+                        color: active ? "hsl(20,10%,25%)" : "hsla(40,20%,95%,0.3)",
+                        transition: "color 0.3s ease",
+                      }}
+                    >
+                      {sub}
+                    </span>
+                  </span>
+                </motion.button>
+              );
+            })}
+          </div>
         </div>
+
+        {/* Hint text */}
+        <p
+          style={{
+            textAlign: "center",
+            fontSize: 11,
+            color: "hsla(40,20%,95%,0.25)",
+            marginBottom: 28,
+            fontFamily: "inherit",
+          }}
+        >
+          Use{" "}
+          <span style={{ color: "hsla(40,20%,95%,0.45)" }}>← →</span> arrow keys or buttons to flip pages
+        </p>
+
+        {/* ── Flipbook content ── */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={mode}
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
+          >
+            {mode === "bar" ? <BarMenuBook /> : <FoodMenuBook />}
+          </motion.div>
+        </AnimatePresence>
+
+        {/* Legal footnote */}
+        <p
+          style={{
+            textAlign: "center",
+            fontFamily: "inherit",
+            fontSize: 11,
+            marginTop: 40,
+            color: "hsla(40,20%,95%,0.18)",
+            lineHeight: 1.6,
+          }}
+        >
+          Government taxes as applicable · Alcoholic beverages will not be served to persons below 21 years of age
+          <br />
+          All prices in ₹ · +10% service charge applicable
+        </p>
       </div>
     </section>
   );
