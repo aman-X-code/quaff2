@@ -16,7 +16,7 @@ const ScrollWord = ({
   isHighlight?: boolean;
 }) => {
   // Each word gets its own slice of the scroll timeline
-  const wordStart = 0.15 + (index / total) * 0.45;
+  const wordStart = 0.05 + (index / total) * 0.45;
   const wordEnd = wordStart + 0.06;
 
   const opacity = useTransform(scrollProgress, [wordStart, wordEnd], [0, 1]);
@@ -54,7 +54,7 @@ const BurpText = () => {
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    offset: ["start end", "end start"],
+    offset: ["start 80%", "end start"],
   });
 
   const smoothProgress = useSpring(scrollYProgress, {
@@ -64,17 +64,17 @@ const BurpText = () => {
   });
 
   // Amen header — appears first
-  const amenOpacity = useTransform(smoothProgress, [0.1, 0.2], [0, 1]);
-  const amenY = useTransform(smoothProgress, [0.1, 0.2], [30, 0]);
-  const amenBlur = useTransform(smoothProgress, [0.1, 0.2], [10, 0]);
+  const amenOpacity = useTransform(smoothProgress, [0.0, 0.1], [0, 1]);
+  const amenY = useTransform(smoothProgress, [0.0, 0.1], [30, 0]);
+  const amenBlur = useTransform(smoothProgress, [0.0, 0.1], [10, 0]);
   const amenFilter = useTransform(amenBlur, (v) => `blur(${v}px)`);
 
   // Burp text — single block scroll
-  const burpX = useTransform(smoothProgress, [0.3, 0.6, 1.0], ["120%", "0%", "-50%"]);
-  const burpY = useTransform(smoothProgress, [0.3, 0.6, 1.0], ["0%", "0%", "25%"]);
-  const burpOp = useTransform(smoothProgress, [0.3, 0.5, 0.78, 0.95], [0, 1, 1, 0]);
-  const burpRotate = useTransform(smoothProgress, [0.3, 0.6, 1.0], [-8, -12, -16]);
-  const burpScale = useTransform(smoothProgress, [0.3, 0.6, 0.85], [0.9, 1, 1.05]);
+  const burpX = useTransform(smoothProgress, [0.15, 0.45, 1.0], ["120%", "0%", "-50%"]);
+  const burpY = useTransform(smoothProgress, [0.15, 0.45, 1.0], ["0%", "0%", "25%"]);
+  const burpOp = useTransform(smoothProgress, [0.15, 0.35, 0.78, 0.95], [0, 1, 1, 0]);
+  const burpRotate = useTransform(smoothProgress, [0.15, 0.45, 1.0], [-8, -12, -16]);
+  const burpScale = useTransform(smoothProgress, [0.15, 0.45, 0.85], [0.9, 1, 1.05]);
 
   // Quote words with highlight markers
   const quoteLines = [
@@ -185,7 +185,7 @@ const BurpText = () => {
     <section
       ref={sectionRef}
       className="relative w-full flex items-center justify-center overflow-visible bg-background"
-      style={{ minHeight: "150vh" }}
+      style={{ minHeight: "50vh" }}
     >
       {/* Glitter canvas */}
       <canvas
@@ -204,7 +204,7 @@ const BurpText = () => {
 
       {/* Sticky content container */}
       <div
-        className="sticky top-0 h-screen flex items-center justify-center w-full"
+        className="sticky top-0 h-screen flex items-start justify-center w-full pt-10"
       >
         <div
           className="relative z-10 flex flex-col items-center w-full"

@@ -30,12 +30,12 @@ const Navbar = () => {
       <nav
         className="fixed top-0 left-0 right-0 z-50"
       >
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+        <div className="w-full px-2 md:px-6 py-3 md:py-4 flex items-center justify-between">
           <a href="#" className="relative z-50">
             <img
               src="/logo-quaff.png"
               alt="Quaff Brewing Co."
-              className="h-10 w-auto object-contain"
+              className="h-4 md:h-7 w-auto object-contain"
             />
           </a>
 

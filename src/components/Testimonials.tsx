@@ -77,7 +77,7 @@ const Testimonials = () => {
   const GOLD_FAINT = "rgba(200,151,62,0.15)";
 
   return (
-    <section id="testimonials" style={{ padding: "6rem 0", overflow: "hidden" }}>
+    <section id="testimonials" style={{ padding: "4rem 0 0" }} className="overflow-hidden">
       <div
         ref={containerRef}
         onMouseMove={handleMouseMove}
@@ -85,7 +85,7 @@ const Testimonials = () => {
           position: "relative",
           maxWidth: 1200,
           margin: "0 auto",
-          padding: "4rem 2rem",
+          padding: '2rem 2rem 0',
         }}
       >
         {/* ── Section label above ── */}

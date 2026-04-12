@@ -144,7 +144,12 @@ const ShootersPage = ({ num }: { num: number }) => (
       { name: "Irish Flag", desc: "Crème de menthe, baileys & brandy", price: "549 / 2999" },
       { name: "Jagerbomb", desc: "Coffee liqueur & Red Bull", price: "699 / 3899" },
     ].map((i, k) => <BookItem key={k} {...i} />)}
-    <SectionTitle sub="" style={{ marginTop: 12 }}>Liqueurs</SectionTitle>
+  </PageShell>
+);
+
+const LiqueursPage = ({ num }: { num: number }) => (
+  <PageShell num={num}>
+    <SectionTitle>Liqueurs</SectionTitle>
     {[
       { name: "Peach Schnapps / Cream De Casis / Triple Sec", price: "449" },
       { name: "Curacao Blue / Sambuca / Amaretto", price: "449" },
@@ -359,15 +364,16 @@ const buildPages = (): FlipPage[] => [
   { node: <AllTimeClassics num={4} />, bg: BGR },
   { node: <LIITPage num={5} />, bg: BGL },
   { node: <ShootersPage num={6} />, bg: BGR },
-  { node: <CraftBeersPage num={7} />, bg: BGL },
-  { node: <NonAlcPage num={8} />, bg: BGR },
-  { node: <SingleMaltPage num={9} />, bg: BGL },
-  { node: <BlendedScotchPage num={10} />, bg: BGR },
-  { node: <AmericanJapanesePage num={11} />, bg: BGL },
-  { node: <GinVodkaPage num={12} />, bg: BGR },
-  { node: <RumTequilaPage num={13} />, bg: BGL },
-  { node: <WinePage num={14} />, bg: BGR },
-  { node: <BackCover />, bg: BGL },
+  { node: <LiqueursPage num={7} />, bg: BGL },
+  { node: <CraftBeersPage num={8} />, bg: BGR },
+  { node: <NonAlcPage num={9} />, bg: BGL },
+  { node: <SingleMaltPage num={10} />, bg: BGR },
+  { node: <BlendedScotchPage num={11} />, bg: BGL },
+  { node: <AmericanJapanesePage num={12} />, bg: BGR },
+  { node: <GinVodkaPage num={13} />, bg: BGL },
+  { node: <RumTequilaPage num={14} />, bg: BGR },
+  { node: <WinePage num={15} />, bg: BGL },
+  { node: <BackCover />, bg: BGR },
 ];
 
 /* ─── Export ─────────────────────────────────────────────── */

@@ -14,11 +14,11 @@ const MenuSection = () => {
   const [mode, setMode] = useState<MenuMode>("bar");
 
   return (
-    <section id="menu" className="py-24 md:py-32 px-6 md:px-16 lg:px-24">
+    <section id="menu" className="pt-6 pb-6 md:py-20 px-4 md:px-16 lg:px-24">
       <div className="max-w-7xl mx-auto">
 
         {/* ── Header ── */}
-        <div className="text-center mb-14">
+        <div className="text-center mb-4 md:mb-10">
           <span className="section-badge">The Bar &amp; Kitchen</span>
           <h2 className="section-heading">
             Every sip, every bite,
@@ -31,7 +31,7 @@ const MenuSection = () => {
         </div>
 
         {/* ── Premium sliding pill tab switcher ── */}
-        <div className="flex justify-center mb-10">
+        <div className="flex justify-center mb-4 md:mb-8">
           <div
             style={{
               display: "inline-flex",
@@ -132,19 +132,6 @@ const MenuSection = () => {
           </div>
         </div>
 
-        {/* Hint text */}
-        <p
-          style={{
-            textAlign: "center",
-            fontSize: 11,
-            color: "hsla(40,20%,95%,0.25)",
-            marginBottom: 28,
-            fontFamily: "inherit",
-          }}
-        >
-          Use{" "}
-          <span style={{ color: "hsla(40,20%,95%,0.45)" }}>← →</span> arrow keys or buttons to flip pages
-        </p>
 
         {/* ── Flipbook content ── */}
         <AnimatePresence mode="wait">
