@@ -1,5 +1,6 @@
 import { motion } from "motion/react";
 import { ArrowDown } from "lucide-react";
+import StarRating from "./StarRating";
 
 const heroImg = "https://res.cloudinary.com/dave3np5n/image/upload/v1773117249/IMG_0970_2_h11ttp.jpg";
 
@@ -77,6 +78,22 @@ const Hero = () => {
           className="absolute bottom-8"
         >
           <ArrowDown className="text-foreground/40 animate-bounce" size={20} />
+        </motion.div>
+
+        {/* Star rating — bottom right */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 1.4 }}
+          className="absolute bottom-8 right-8 flex flex-col items-end gap-2"
+        >
+          <StarRating rating={5} size={15} />
+          <span
+            className="text-[11px] font-body font-light tracking-wider"
+            style={{ color: "hsla(40,20%,95%,0.4)" }}
+          >
+            4.9 &nbsp;·&nbsp; 2,400+ reviews
+          </span>
         </motion.div>
       </div>
     </section>

@@ -6,6 +6,7 @@ import {
   useSpring,
   useTransform,
 } from "motion/react";
+import StarRating from "./StarRating";
 
 /* ─── Data ───────────────────────────────────────────────── */
 const testimonials = [
@@ -15,6 +16,7 @@ const testimonials = [
     author: "Arjun Mehta",
     role: "Regular Guest",
     company: "Quaff Cyber Hub",
+    rating: 5,
   },
   {
     quote:
@@ -22,6 +24,7 @@ const testimonials = [
     author: "Priya Sharma",
     role: "Food Blogger",
     company: "Quaff Eros City",
+    rating: 5,
   },
   {
     quote:
@@ -29,6 +32,7 @@ const testimonials = [
     author: "Rohit Kapoor",
     role: "Beer Enthusiast",
     company: "Brewmaster's Table",
+    rating: 5,
   },
   {
     quote:
@@ -36,6 +40,7 @@ const testimonials = [
     author: "Sneha Reddy",
     role: "Music Lover",
     company: "Friday Nights at Quaff",
+    rating: 5,
   },
 ];
 
@@ -232,6 +237,20 @@ const Testimonials = () => {
                   />
                   {current.company}
                 </span>
+              </motion.div>
+            </AnimatePresence>
+
+            {/* Star rating — re-mounts on slide change to replay animation */}
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={`stars-${activeIndex}`}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+                style={{ marginBottom: "1.25rem" }}
+              >
+                <StarRating rating={current.rating} size={18} />
               </motion.div>
             </AnimatePresence>
 
