@@ -217,6 +217,7 @@ const BrewerySection = () => {
 
   return (
     <section
+      id="brewery"
       ref={sectionRef}
       style={{ position: "relative", padding: "6rem 0", overflow: "hidden" }}
     >
