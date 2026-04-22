@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import {
   motion,
   useScroll,
@@ -8,21 +8,24 @@ import {
 } from "motion/react";
 
 /* ─── Data ───────────────────────────────────────────────────── */
-const IMG =
-  "https://res.cloudinary.com/dave3np5n/image/upload/v1773117272/IMG_1002_2_q7uepn.jpg";
+const IMAGES = [
+  "https://res.cloudinary.com/dave3np5n/image/upload/v1773117272/IMG_1002_2_q7uepn.jpg",
+  "https://res.cloudinary.com/dave3np5n/image/upload/v1773117277/IMG_1015_dq7pav.jpg",
+  "https://res.cloudinary.com/dave3np5n/image/upload/v1773117258/IMG_0994_2_qglhlp.jpg",
+];
 
 const stats = [
-  { value: "6+", label: "House Beers" },
-  { value: "2", label: "Locations" },
-  { value: "3×", label: "Best Brewery" },
-  { value: "50k+", label: "Pints Poured" },
+  { value: "4+", label: "House Beers" },
+  { value: "2", label: "Taprooms" },
+  { value: "#1", label: "Delhi NCR" },
+  { value: "∞", label: "Good Times" },
 ];
 
 const milestones = [
-  { year: "2018", label: "Founded in Gurgaon", detail: "Two friends, one simple dream — bring world-class craft beer to Delhi NCR." },
-  { year: "2019", label: "Six Beers on Tap", detail: "Our core lineup launched. Lines out the door from opening night." },
-  { year: "2021", label: "Eros City Opens", detail: "Second location, same obsessive attention to every pour." },
-  { year: "2023", label: "Best Brewery Award", detail: "Voted India's Best Craft Microbrewery for the third consecutive year." },
+  { year: "Start", label: "Born in Gurgaon", detail: "A simple mission — bring true craft beer to Gurgaon. Built on real craft, exquisite imported ingredients, and a whole lot of love." },
+  { year: "Beers", label: "Brewed In-House", detail: "Bold, fresh, and flavorful craft beers brewed on-site. Every batch made with hand-selected ingredients, poured straight from the tank." },
+  { year: "Food", label: "Vibrant Food Menu", detail: "Our kitchen pairs perfectly with every pour. A lively food menu designed to complement your craft beer experience." },
+  { year: "Today", label: "Most Awarded Brewery", detail: "The most awarded craft brewery in Delhi NCR — two taprooms at Cyber Hub and Eros City Square. Something new on tap, every time." },
 ];
 
 /* ─── Root ───────────────────────────────────────────────────── */
@@ -30,6 +33,14 @@ export default function OurStory() {
   const sectionRef = useRef<HTMLElement>(null);
   const imgContainerRef = useRef<HTMLDivElement>(null);
   const [openMs, setOpenMs] = useState<number | null>(null);
+  const [activeImg, setActiveImg] = useState(0);
+
+  useEffect(() => {
+    const t = setInterval(() => {
+      setActiveImg((i) => (i + 1) % IMAGES.length);
+    }, 5000);
+    return () => clearInterval(t);
+  }, []);
 
   /* Subtle parallax on the image itself */
   const { scrollYProgress } = useScroll({
@@ -56,27 +67,56 @@ export default function OurStory() {
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className="relative"
         >
-          {/* Image wrapper — subtle inset border */}
+          {/* Image slideshow */}
           <div
             ref={imgContainerRef}
             className="relative rounded-2xl overflow-hidden"
             style={{ aspectRatio: "4/5" }}
           >
-            <motion.img
-              src={IMG}
-              alt="Quaff Brewing Co. interior"
-              style={{ y: imgY, top: "-6%", height: "112%" }}
-              className="absolute w-full object-cover"
-              loading="lazy"
-            />
-            {/* Very subtle dark vignette */}
+            {IMAGES.map((src, i) => (
+              <motion.img
+                key={src}
+                src={src}
+                alt={`Quaff Brewing Co. — scene ${i + 1}`}
+                loading="lazy"
+                animate={{
+                  opacity: i === activeImg ? 1 : 0,
+                  scale: i === activeImg ? 1.06 : 1.0,
+                }}
+                transition={{
+                  opacity: { duration: 1.2, ease: "easeInOut" },
+                  scale: { duration: 6, ease: "easeInOut" },
+                }}
+                style={{ y: imgY, top: "-6%", height: "112%" }}
+                className="absolute w-full object-cover"
+              />
+            ))}
+
+            {/* Vignette */}
             <div
-              className="absolute inset-0 pointer-events-none"
+              className="absolute inset-0 pointer-events-none z-10"
               style={{
                 background:
-                  "radial-gradient(ellipse at center, transparent 55%, rgba(10,8,6,0.45) 100%)",
+                  "radial-gradient(ellipse at center, transparent 55%, rgba(10,8,6,0.5) 100%)",
               }}
             />
+
+            {/* Dot indicators */}
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-20">
+              {IMAGES.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setActiveImg(i)}
+                  aria-label={`Go to image ${i + 1}`}
+                  className="transition-all duration-500 rounded-full"
+                  style={{
+                    width: i === activeImg ? 20 : 6,
+                    height: 6,
+                    background: i === activeImg ? "#C8902A" : "rgba(255,255,255,0.3)",
+                  }}
+                />
+              ))}
+            </div>
           </div>
 
           {/* Stats row — floats below the image */}
@@ -149,9 +189,9 @@ export default function OurStory() {
                 letterSpacing: "-0.02em",
               }}
             >
-              Born from a love
+              Delhi NCR's
               <br />
-              <span style={{ color: "hsl(40,20%,62%)" }}>of great beer.</span>
+              <span style={{ color: "hsl(40,20%,62%)" }}>most awarded brew.</span>
             </motion.h2>
           </div>
 
@@ -163,9 +203,12 @@ export default function OurStory() {
             className="text-[15px] font-light leading-[1.75] mb-12 max-w-md"
             style={{ color: "hsl(40,12%,56%)", fontFamily: "var(--font-body)" }}
           >
-            Quaff started with a simple obsession — beer worth caring about.
-            Every batch is brewed on-site with hand-selected ingredients.
-            This isn't just a bar. It's where Gurgaon comes to celebrate.
+            Quaff Brewing Co. is the most awarded craft brewery in Delhi NCR —
+            born out of a passion for great beer and good times. We brew bold,
+            fresh, and flavorful craft beers in-house, paired with a vibrant
+            food menu and a lively atmosphere. With two taprooms in Gurgaon —
+            Cyber Hub and Eros City Square — Quaff is where beer lovers come
+            to discover something new on tap, every time.
           </motion.p>
 
           {/* Milestone accordion */}

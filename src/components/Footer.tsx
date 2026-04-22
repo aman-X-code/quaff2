@@ -1,5 +1,7 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+const zomatoIcon = "https://res.cloudinary.com/dave3np5n/image/upload/v1776888901/unnamed_v7snxv.webp";
+const swiggyIcon = "https://res.cloudinary.com/dave3np5n/image/upload/v1776888857/unnamed_g1s7c2.png";
 
 const Footer = () => {
   const footerRef = useRef<HTMLElement>(null);
@@ -10,18 +12,26 @@ const Footer = () => {
 
   const textY = useTransform(scrollYProgress, [0, 1], [40, 0]);
 
-  const navRows = [
-    ["Home", "Our Story", "Brews"],
-    ["Menu", "Visit Us", "Gallery"],
-    ["Cyber Hub", "Eros City Square"],
+  const navLinks = [
+    { label: "Home", href: "#home" },
+    { label: "Our Story", href: "#our-story" },
+    { label: "Brews", href: "#brews" },
+    { label: "Menu", href: "#menu" },
+    { label: "Visit Us", href: "#visit" },
   ];
+
+  const locationLinks = [
+    { label: "Cyber Hub", href: "tel:+919654659050" },
+    { label: "Eros City Square", href: "tel:+917059800007" },
+  ];
+
 
   return (
     <footer
       ref={footerRef}
       className="relative pt-14 overflow-hidden"
       style={{
-        background: "hsl(20, 10%, 3%)",
+        background: "#000",
         borderRadius: "40px 40px 0 0",
         marginTop: "2px",
         boxShadow: "0 -1px 0 hsla(40, 20%, 95%, 0.07), 0 -40px 80px -20px rgba(0,0,0,0.6)",
@@ -31,26 +41,58 @@ const Footer = () => {
 
         {/* Row 1: social icons left | contact right */}
         <div className="flex items-start justify-between mb-8">
-          {/* Social icons */}
-          <div className="flex gap-3">
-            {[
-              { label: "Twitter", path: "M22.46 6c-.77.35-1.6.58-2.46.69a4.3 4.3 0 001.88-2.38 8.59 8.59 0 01-2.72 1.04 4.28 4.28 0 00-7.32 3.91A12.16 12.16 0 013.15 4.83a4.28 4.28 0 001.32 5.71 4.24 4.24 0 01-1.94-.54v.05a4.28 4.28 0 003.43 4.19 4.27 4.27 0 01-1.93.07 4.29 4.29 0 004 2.98A8.59 8.59 0 012 19.54a12.13 12.13 0 006.56 1.92c7.88 0 12.2-6.53 12.2-12.2 0-.19 0-.37-.01-.56A8.72 8.72 0 0024 5.06a8.53 8.53 0 01-2.54.7z" },
-              { label: "Instagram", path: "M7.75 2h8.5A5.75 5.75 0 0122 7.75v8.5A5.75 5.75 0 0116.25 22h-8.5A5.75 5.75 0 012 16.25v-8.5A5.75 5.75 0 017.75 2zm0 1.5A4.25 4.25 0 003.5 7.75v8.5A4.25 4.25 0 007.75 20.5h8.5a4.25 4.25 0 004.25-4.25v-8.5A4.25 4.25 0 0016.25 3.5h-8.5zM12 7a5 5 0 110 10 5 5 0 010-10zm0 1.5a3.5 3.5 0 100 7 3.5 3.5 0 000-7zm5.25-.88a.88.88 0 110 1.76.88.88 0 010-1.76z" },
-              { label: "YouTube", path: "M23.5 6.19a3.02 3.02 0 00-2.12-2.14C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.38.55A3.02 3.02 0 00.5 6.19 31.6 31.6 0 000 12a31.6 31.6 0 00.5 5.81 3.02 3.02 0 002.12 2.14c1.88.55 9.38.55 9.38.55s7.5 0 9.38-.55a3.02 3.02 0 002.12-2.14A31.6 31.6 0 0024 12a31.6 31.6 0 00-.5-5.81zM9.75 15.02V8.98L15.5 12l-5.75 3.02z" },
-            ].map((icon) => (
-              <a
-                key={icon.label}
-                href="#"
-                aria-label={icon.label}
-                className="w-10 h-10 rounded-full flex items-center justify-center transition-colors hover:bg-white/5"
-                style={{ border: "1px solid hsla(40, 20%, 95%, 0.15)" }}
-              >
-                <svg viewBox="0 0 24 24" className="w-4 h-4" fill="hsla(40, 20%, 95%, 0.6)">
-                  <path d={icon.path} />
-                </svg>
-              </a>
-            ))}
+          {/* Social + platform icons */}
+          <div className="flex gap-3 flex-wrap">
+            {/* Instagram */}
+            <a
+              href="https://www.instagram.com/quaffbrewingco.cyberhub/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram"
+              className="w-10 h-10 rounded-full flex items-center justify-center transition-all hover:opacity-80"
+              style={{
+                background: "linear-gradient(135deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D, #F56040, #F77737, #FCAF45)",
+                border: "none",
+              }}
+            >
+              <svg viewBox="0 0 24 24" className="w-5 h-5" fill="white">
+                <path d="M7.75 2h8.5A5.75 5.75 0 0122 7.75v8.5A5.75 5.75 0 0116.25 22h-8.5A5.75 5.75 0 012 16.25v-8.5A5.75 5.75 0 017.75 2zm0 1.5A4.25 4.25 0 003.5 7.75v8.5A4.25 4.25 0 007.75 20.5h8.5a4.25 4.25 0 004.25-4.25v-8.5A4.25 4.25 0 0016.25 3.5h-8.5zM12 7a5 5 0 110 10 5 5 0 010-10zm0 1.5a3.5 3.5 0 100 7 3.5 3.5 0 000-7zm5.25-.88a.88.88 0 110 1.76.88.88 0 010-1.76z" />
+              </svg>
+            </a>
+
+            {/* Zomato */}
+            <a
+              href="https://www.zomato.com/ncr/quaff-brewing-co-dlf-cyber-city-gurgaon"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Zomato"
+              className="w-10 h-10 rounded-full flex items-center justify-center overflow-hidden transition-all hover:opacity-80"
+              style={{ border: "1px solid #E2374444", background: "#E2374415" }}
+            >
+              <img
+                src={zomatoIcon}
+                alt="Zomato"
+                className="w-full h-full object-contain"
+              />
+            </a>
+
+            {/* Swiggy */}
+            <a
+              href="https://www.swiggy.com/restaurants/quaff-brewing-co-dlf-cyber-city-gurgaon-1108301/dineout"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Swiggy Dineout"
+              className="w-10 h-10 rounded-full flex items-center justify-center overflow-hidden transition-all hover:opacity-80"
+              style={{ border: "1px solid #FC801944", background: "#FC801915" }}
+            >
+              <img
+                src={swiggyIcon}
+                alt="Swiggy"
+                className="w-full h-full object-contain"
+              />
+            </a>
           </div>
+
 
           {/* Contact */}
           <div className="text-right">
@@ -70,32 +112,62 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Row 2: nav links with "/" separators — styled exactly like Templyo */}
-        <div className="space-y-1.5 mb-16">
-          {navRows.map((row, ri) => (
-            <div key={ri} className="flex items-center gap-0">
-              {row.map((link, li) => (
-                <span key={link} className="flex items-center">
-                  <a
-                    href="#"
-                    className="font-body font-light text-sm transition-opacity hover:opacity-80"
-                    style={{ color: "hsla(40, 20%, 95%, 0.6)" }}
-                  >
-                    {link}
-                  </a>
-                  {li < row.length - 1 && (
-                    <span
-                      className="mx-3 font-body font-light text-sm"
-                      style={{ color: "hsla(40, 20%, 95%, 0.2)" }}
-                    >
-                      /
-                    </span>
-                  )}
+        {/* Nav links row */}
+        <div className="flex flex-wrap items-center gap-x-0 gap-y-1.5 mb-3">
+          {navLinks.map((link, li) => (
+            <span key={link.label} className="flex items-center">
+              <a
+                href={link.href}
+                className="font-body font-light text-sm transition-opacity hover:opacity-80"
+                style={{ color: "hsla(40, 20%, 95%, 0.6)" }}
+              >
+                {link.label}
+              </a>
+              {li < navLinks.length - 1 && (
+                <span
+                  className="mx-3 font-body font-light text-sm"
+                  style={{ color: "hsla(40, 20%, 95%, 0.2)" }}
+                >
+                  /
                 </span>
-              ))}
-            </div>
+              )}
+            </span>
           ))}
         </div>
+
+        {/* Location phone links */}
+        <div className="flex flex-wrap items-center gap-x-0 gap-y-1.5 mb-16">
+          {locationLinks.map((loc, li) => (
+            <span key={loc.label} className="flex items-center">
+              <a
+                href={loc.href}
+                className="font-body font-light text-sm transition-opacity hover:opacity-80"
+                style={{ color: "hsla(40, 20%, 95%, 0.35)" }}
+              >
+                {loc.label}
+              </a>
+              {li < locationLinks.length - 1 && (
+                <span
+                  className="mx-3 font-body font-light text-sm"
+                  style={{ color: "hsla(40, 20%, 95%, 0.15)" }}
+                >
+                  /
+                </span>
+              )}
+            </span>
+          ))}
+        </div>
+      </div>
+
+
+      {/* Vega Hospitality attribution */}
+      <div className="max-w-7xl mx-auto px-6 md:px-16 pb-6 flex items-center justify-center">
+        <p
+          className="font-body text-[10px] tracking-[0.2em] uppercase"
+          style={{ color: "hsla(40, 20%, 95%, 0.22)" }}
+        >
+          A Vega Hospitality venture
+        </p>
       </div>
 
       {/* Giant "Quaff" watermark — flush to bottom like Templyo */}
