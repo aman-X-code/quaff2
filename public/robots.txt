@@ -1,14 +1,8 @@
-User-agent: Googlebot
-Allow: /
-
-User-agent: Bingbot
-Allow: /
-
-User-agent: Twitterbot
-Allow: /
-
-User-agent: facebookexternalhit
-Allow: /
+# Quaff Brewing Co. — robots.txt
+# https://www.quaffbrewingco.com/
 
 User-agent: *
 Allow: /
+
+# Point crawlers to the sitemap
+Sitemap: https://www.quaffbrewingco.com/sitemap.xml
