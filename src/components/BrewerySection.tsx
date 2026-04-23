@@ -7,6 +7,7 @@ import {
   useMotionValue,
   useInView,
 } from "motion/react";
+// Note: useSpring kept only for mouse-tilt on StatCard (not scroll-driven)
 
 /* ─── Assets ─────────────────────────────────────────────── */
 const breweryImg =
@@ -92,12 +93,13 @@ const StatCard = ({
           transformStyle: "preserve-3d",
           borderRadius: 24,
           padding: "32px 28px",
-          background: "hsla(40,20%,95%,0.035)",
-          backdropFilter: "blur(16px)",
+          background: "hsla(40,20%,95%,0.05)",
+          backdropFilter: "blur(8px)",
           border: "1px solid hsla(40,20%,95%,0.08)",
           cursor: "default",
           position: "relative",
           overflow: "hidden",
+          willChange: "transform",
         }}
         whileHover={{
           background: "hsla(40,20%,95%,0.06)",
@@ -208,9 +210,8 @@ const BrewerySection = () => {
     offset: ["start end", "end start"],
   });
 
-  /* Parallax: image moves slower than scroll */
-  const rawY = useTransform(scrollYProgress, [0, 1], ["-12%", "12%"]);
-  const imgY = useSpring(rawY, { stiffness: 60, damping: 18 });
+  /* Parallax: plain useTransform — no spring to avoid fighting the scroll thread */
+  const imgY = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
 
   /* Fade vignette based on scroll */
   const brightnessVal = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0.2, 0.35, 0.35, 0.2]);
@@ -236,6 +237,7 @@ const BrewerySection = () => {
           top: "-7.5%",
           y: imgY,
           filter: imgFilter,
+          willChange: "transform",
         }}
       />
 

@@ -165,77 +165,6 @@ const Hero = () => {
           </a>
         </motion.div>
 
-        {/* ── Video switcher strip — bottom centre ── */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.6 }}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 flex items-end gap-3 pointer-events-auto"
-        >
-          {videos.map((v, i) => {
-            const isActive = i === active;
-            return (
-              <button
-                key={v.src}
-                onClick={() => goTo(i)}
-                className="group flex flex-col items-start gap-1.5 focus:outline-none"
-                aria-label={`Play ${v.label}`}
-              >
-                {/* Label — fades in when active */}
-                <div
-                  className="text-left transition-all duration-500 overflow-hidden"
-                  style={{ maxHeight: isActive ? 32 : 0, opacity: isActive ? 1 : 0 }}
-                >
-                  <span
-                    className="text-[9px] tracking-[0.24em] uppercase font-semibold block"
-                    style={{ color: "#C8902A" }}
-                  >
-                    {v.label}
-                  </span>
-                  <span
-                    className="text-[8px] tracking-[0.16em] block"
-                    style={{ color: "rgba(255,255,255,0.35)" }}
-                  >
-                    {v.sub}
-                  </span>
-                </div>
-
-                {/* Progress bar */}
-                <div
-                  className="relative overflow-hidden rounded-full"
-                  style={{
-                    width: isActive ? 80 : 36,
-                    height: 2,
-                    background: "rgba(255,255,255,0.15)",
-                    transition: "width 0.5s cubic-bezier(0.25,0.46,0.45,0.94)",
-                  }}
-                >
-                  {isActive && (
-                    <motion.div
-                      className="absolute inset-y-0 left-0 rounded-full"
-                      style={{ background: "#C8902A" }}
-                      initial={{ width: "0%" }}
-                      animate={{ width: "100%" }}
-                      transition={{ duration: AUTO_INTERVAL / 1000, ease: "linear" }}
-                      key={`bar-${active}`}
-                    />
-                  )}
-                </div>
-              </button>
-            );
-          })}
-        </motion.div>
-
-        {/* Scroll cue */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 2, duration: 1 }}
-          className="absolute bottom-10 right-10 pointer-events-none"
-        >
-          <ArrowDown className="text-foreground/25 animate-bounce" size={18} />
-        </motion.div>
-
         {/* Rating — top right */}
         <motion.div
           initial={{ opacity: 0, y: -10 }}
@@ -253,6 +182,78 @@ const Hero = () => {
         </motion.div>
 
       </div>
+
+      {/* ── Video switcher strip — bottom centre, outside the flex column so it never clips ── */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 1.6 }}
+        className="absolute bottom-8 left-0 right-0 z-20 flex items-end justify-center gap-3 px-6 pointer-events-auto"
+      >
+        {videos.map((v, i) => {
+          const isActive = i === active;
+          return (
+            <button
+              key={v.src}
+              onClick={() => goTo(i)}
+              className="group flex flex-col items-start gap-1.5 focus:outline-none"
+              aria-label={`Play ${v.label}`}
+            >
+              {/* Label — fades in when active */}
+              <div
+                className="text-left transition-all duration-500 overflow-hidden"
+                style={{ maxHeight: isActive ? 32 : 0, opacity: isActive ? 1 : 0 }}
+              >
+                <span
+                  className="text-[9px] tracking-[0.24em] uppercase font-semibold block"
+                  style={{ color: "#C8902A" }}
+                >
+                  {v.label}
+                </span>
+                <span
+                  className="text-[8px] tracking-[0.16em] block"
+                  style={{ color: "rgba(255,255,255,0.35)" }}
+                >
+                  {v.sub}
+                </span>
+              </div>
+
+              {/* Progress bar */}
+              <div
+                className="relative overflow-hidden rounded-full"
+                style={{
+                  width: isActive ? 72 : 32,
+                  height: 2,
+                  background: "rgba(255,255,255,0.15)",
+                  transition: "width 0.5s cubic-bezier(0.25,0.46,0.45,0.94)",
+                }}
+              >
+                {isActive && (
+                  <motion.div
+                    className="absolute inset-y-0 left-0 rounded-full"
+                    style={{ background: "#C8902A" }}
+                    initial={{ width: "0%" }}
+                    animate={{ width: "100%" }}
+                    transition={{ duration: AUTO_INTERVAL / 1000, ease: "linear" }}
+                    key={`bar-${active}`}
+                  />
+                )}
+              </div>
+            </button>
+          );
+        })}
+      </motion.div>
+
+      {/* Scroll cue */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 2, duration: 1 }}
+        className="absolute bottom-8 right-6 z-20 pointer-events-none"
+      >
+        <ArrowDown className="text-foreground/25 animate-bounce" size={18} />
+      </motion.div>
+
     </section>
   );
 };

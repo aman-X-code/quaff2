@@ -172,14 +172,15 @@ const NavBtn = ({
       alignItems: "center",
       gap: 6,
       fontFamily: "inherit",
-      fontSize: 13,
-      padding: "10px 20px",
+      fontSize: 14,
+      padding: "10px 22px",
       borderRadius: 99,
-      border: "1px solid hsla(40,20%,95%,0.14)",
-      color: "hsla(40,20%,95%,0.65)",
-      background: "transparent",
-      opacity: disabled ? 0.25 : 1,
+      border: "1px solid hsla(40,20%,95%,0.35)",
+      color: "hsla(40,20%,95%,0.88)",
+      background: "hsla(40,20%,95%,0.06)",
+      opacity: disabled ? 0.3 : 1,
       cursor: disabled ? "not-allowed" : "pointer",
+      transition: "background 0.2s, border-color 0.2s",
     }}
   >
     {children}

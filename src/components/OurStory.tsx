@@ -3,7 +3,6 @@ import {
   motion,
   useScroll,
   useTransform,
-  useSpring,
   useInView,
 } from "motion/react";
 
@@ -47,8 +46,8 @@ export default function OurStory() {
     target: sectionRef,
     offset: ["start end", "end start"],
   });
-  const rawY = useTransform(scrollYProgress, [0, 1], ["-6%", "6%"]);
-  const imgY = useSpring(rawY, { stiffness: 50, damping: 18 });
+  /* Plain parallax — no spring to avoid jank with scroll */
+  const imgY = useTransform(scrollYProgress, [0, 1], ["-6%", "6%"]);
 
   const inView = useInView(sectionRef, { once: true, margin: "-80px" });
 
@@ -81,13 +80,14 @@ export default function OurStory() {
                 loading="lazy"
                 animate={{
                   opacity: i === activeImg ? 1 : 0,
-                  scale: i === activeImg ? 1.06 : 1.0,
+                  /* Only scale the active image to avoid simultaneous GPU work */
+                  scale: i === activeImg ? 1.04 : 1.0,
                 }}
                 transition={{
-                  opacity: { duration: 1.2, ease: "easeInOut" },
-                  scale: { duration: 6, ease: "easeInOut" },
+                  opacity: { duration: 1.0, ease: "easeInOut" },
+                  scale: { duration: 7, ease: "linear" },
                 }}
-                style={{ y: imgY, top: "-6%", height: "112%" }}
+                style={{ y: imgY, top: "-6%", height: "112%", willChange: "transform" }}
                 className="absolute w-full object-cover"
               />
             ))}

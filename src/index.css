@@ -52,6 +52,16 @@
     display: none;               /* Chrome / Safari */
   }
 
+  /* Brand gold text selection */
+  ::selection {
+    background: hsl(35, 80%, 50%);
+    color: hsl(20, 10%, 5%);
+  }
+  ::-moz-selection {
+    background: hsl(35, 80%, 50%);
+    color: hsl(20, 10%, 5%);
+  }
+
   body {
     @apply bg-background text-foreground font-body;
     font-family: var(--font-body);

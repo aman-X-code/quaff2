@@ -99,7 +99,7 @@ function BrewCard({
   return (
     <motion.div
       ref={ref}
-      style={{ perspective: "1000px" }}
+      style={{ perspective: "1000px", willChange: "transform" }}
       className="w-full"
       initial={{ opacity: 0, y: 56 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -265,7 +265,6 @@ function BrewCard({
                 background: beer.color + "22",
                 border: `1px solid ${beer.color}44`,
                 color: beer.color,
-                backdropFilter: "blur(10px)",
               }}
             >
               {beer.style}
