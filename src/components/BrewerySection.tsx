@@ -213,7 +213,8 @@ const BrewerySection = () => {
   const imgY = useSpring(rawY, { stiffness: 60, damping: 18 });
 
   /* Fade vignette based on scroll */
-  const brightness = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0.2, 0.35, 0.35, 0.2]);
+  const brightnessVal = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0.2, 0.35, 0.35, 0.2]);
+  const imgFilter = useTransform(brightnessVal, (v) => `saturate(0.45) brightness(${v})`);
 
   return (
     <section
@@ -234,8 +235,7 @@ const BrewerySection = () => {
           objectFit: "cover",
           top: "-7.5%",
           y: imgY,
-          filter: "saturate(0.45)",
-          brightness,
+          filter: imgFilter,
         }}
       />
 
