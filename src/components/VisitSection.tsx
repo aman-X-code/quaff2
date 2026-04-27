@@ -10,6 +10,8 @@ const locations = [
     display: "+91 70598 00007",
     hours: "Mon – Thu: 12 PM – 1 AM\nFri – Sun: 12 PM – 1 AM",
     mapsUrl: "https://maps.google.com/?q=Quaff+Eros+City+Square+Gurugram",
+    zomatoUrl: "https://www.zomato.com/ncr/quaff-brewing-co-sector-49-gurgaon",
+    swiggyUrl: "https://www.swiggy.com/restaurants/quaff-brewing-co-sector-49-delhi-1108262/dineout",
   },
   {
     name: "Quaff Cyber Hub",
@@ -19,6 +21,8 @@ const locations = [
     display: "+91 96546 59050",
     hours: "Mon – Thu: 12 PM – 1 AM\nFri – Sun: 12 PM – 1 AM",
     mapsUrl: "https://maps.google.com/?q=Quaff+Cyber+Hub+Gurugram",
+    zomatoUrl: "https://www.zomato.com/ncr/quaff-brewing-co-dlf-cyber-city-gurgaon",
+    swiggyUrl: "https://www.swiggy.com/restaurants/quaff-brewing-co-dlf-cyber-city-gurgaon-1108301/dineout",
   },
 ];
 
@@ -60,36 +64,7 @@ const VisitSection = () => {
           </p>
         </motion.div>
 
-        {/* Platform booking CTAs */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.25 }}
-          className="flex flex-wrap gap-3 mb-14"
-        >
-          {[
-            { label: "Reserve on Zomato", href: "https://www.zomato.com/ncr/quaff-brewing-co-dlf-cyber-city-gurgaon", color: "#E23744" },
-            { label: "Book on Swiggy Dineout", href: "https://www.swiggy.com/restaurants/quaff-brewing-co-dlf-cyber-city-gurgaon-1108301/dineout", color: "#FC8019" },
-          ].map((p) => (
-            <a
-              key={p.label}
-              href={p.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-sm font-medium px-5 py-2.5 rounded-full transition-all hover:opacity-85 active:scale-95"
-              style={{
-                border: `1px solid ${p.color}55`,
-                color: p.color,
-                background: `${p.color}15`,
-                fontFamily: "var(--font-body)",
-              }}
-            >
-              {p.label}
-              <span style={{ opacity: 0.6, fontSize: 11 }}>↗</span>
-            </a>
-          ))}
-        </motion.div>
+
 
         {/* Location cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -163,6 +138,31 @@ const VisitSection = () => {
                   >
                     {loc.hours}
                   </p>
+                </div>
+
+                {/* Platform booking CTAs */}
+                <div className="flex flex-wrap gap-2 mb-5">
+                  {[
+                    { label: "Zomato", href: loc.zomatoUrl, color: "#E23744" },
+                    { label: "Swiggy Dineout", href: loc.swiggyUrl, color: "#FC8019" },
+                  ].map((p) => (
+                    <a
+                      key={p.label}
+                      href={p.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 text-xs font-medium px-3.5 py-1.5 rounded-full transition-all hover:opacity-85 active:scale-95"
+                      style={{
+                        border: `1px solid ${p.color}55`,
+                        color: p.color,
+                        background: `${p.color}15`,
+                        fontFamily: "var(--font-body)",
+                      }}
+                    >
+                      {p.label}
+                      <span style={{ opacity: 0.6, fontSize: 10 }}>↗</span>
+                    </a>
+                  ))}
                 </div>
 
                 {/* Divider */}

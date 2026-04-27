@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion } from "motion/react";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
@@ -12,6 +12,7 @@ import VisitSection from "@/components/VisitSection";
 import Footer from "@/components/Footer";
 import RevealLoader from "@/components/RevealLoader";
 import NavigationIndicator from "@/components/NavigationIndicator";
+import AgeGate, { SESSION_KEY } from "@/components/AgeGate";
 
 /* Sections tracked by the nav indicator */
 const NAV_SECTIONS = [
@@ -24,9 +25,26 @@ const NAV_SECTIONS = [
   { id: "visit",       label: "Visit" },
 ];
 
-const Index = () => {
+const Index = ({ section }: { section?: string } = {}) => {
+  // Age gate: persist for the browser session
+  const [ageVerified, setAgeVerified] = useState(
+    () => sessionStorage.getItem(SESSION_KEY) === "true"
+  );
   const [loaderDone, setLoaderDone] = useState(false);
   const [activeIndex, setActiveIndex] = useState<number | null>(0);
+  const scrolledRef = useRef(false);
+
+  /* After loader finishes, scroll to the deep-link section once */
+  useEffect(() => {
+    if (!loaderDone || !section || scrolledRef.current) return;
+    scrolledRef.current = true;
+    // Small delay so the page has painted before we scroll
+    const t = setTimeout(() => {
+      const el = document.getElementById(section);
+      el?.scrollIntoView({ behavior: "smooth" });
+    }, 120);
+    return () => clearTimeout(t);
+  }, [loaderDone, section]);
 
   /* Track which section is most visible */
   useEffect(() => {
@@ -58,8 +76,13 @@ const Index = () => {
 
   return (
     <div className="bg-background overflow-x-hidden">
-      {/* ── Cinematic preloader ── */}
-      {!loaderDone && (
+      {/* ── Age verification gate ── */}
+      {!ageVerified && (
+        <AgeGate onVerified={() => setAgeVerified(true)} />
+      )}
+
+      {/* ── Cinematic preloader (only after age verified) ── */}
+      {ageVerified && !loaderDone && (
         <RevealLoader
           text="QUAFF"
           bgColors={["hsl(26, 14%, 4%)", "hsl(26, 22%, 9%)"]}

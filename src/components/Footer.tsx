@@ -69,11 +69,7 @@ const Footer = () => {
               className="w-10 h-10 rounded-full flex items-center justify-center overflow-hidden transition-all hover:opacity-80"
               style={{ border: "1px solid #E2374444", background: "#E2374415" }}
             >
-              <img
-                src={zomatoIcon}
-                alt="Zomato"
-                className="w-full h-full object-contain"
-              />
+              <img src={zomatoIcon} alt="Zomato" className="w-full h-full object-contain" />
             </a>
 
             {/* Swiggy */}
@@ -85,11 +81,7 @@ const Footer = () => {
               className="w-10 h-10 rounded-full flex items-center justify-center overflow-hidden transition-all hover:opacity-80"
               style={{ border: "1px solid #FC801944", background: "#FC801915" }}
             >
-              <img
-                src={swiggyIcon}
-                alt="Swiggy"
-                className="w-full h-full object-contain"
-              />
+              <img src={swiggyIcon} alt="Swiggy" className="w-full h-full object-contain" />
             </a>
           </div>
 
